@@ -4,7 +4,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 require("dotenv").config()
 
-const blogRoute = require("./route/blog")
+const blogRoute = require("./routes/blog")
 
 const app = express()
 
