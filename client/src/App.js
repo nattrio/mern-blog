@@ -1,8 +1,12 @@
+import NavbarComponent from "./components/NavbarComponent"
 function App() {
   return (
-    <div className="container">
+    <div className="container p-5">
+      <NavbarComponent />
       <h1>MERN STACK</h1>
-      <button className="btn btn-primary">Bootstrap</button>
+      <a className="btn btn-primary" href="/create">
+        เขียนบทความ
+      </a>
     </div>
   )
 }
