@@ -1,6 +1,7 @@
 import NavbarComponent from "./components/NavbarComponent"
 import { useState, setState, useEffect } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 function App() {
   const [blogs, setBlogs] = useState([])
@@ -27,7 +28,9 @@ function App() {
             className="col pt-3 pb-2"
             style={{ borderBottom: "1px solid silver" }}
           >
-            <h2>{blog.title}</h2>
+            <Link to={`/blog/${blog.slug}`}>
+              <h2>{blog.title}</h2>
+            </Link>
             <p>{blog.content.substring(0, 200)}</p>
             <p className="text-muted">
               ผู้เขียน: {blog.author}, เผยแพร่:{" "}

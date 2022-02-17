@@ -1,12 +1,14 @@
 // Connect to DB
 const slugify = require("slugify")
 const Blogs = require("../models/blogs")
+const { v4: uuidv4 } = require("uuid")
 
 // Save data
 exports.create = (req, res) => {
   const { title, content, author } = req.body
-  const slug = slugify(title)
+  let slug = slugify(title)
 
+  if (!slug) slug = uuidv4()
   // validate
   switch (true) {
     case !title:
