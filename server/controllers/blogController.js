@@ -16,11 +16,17 @@ exports.create = (req, res) => {
       return res.status(400).json({ error: "please input content" })
       break
   }
-
   Blogs.create({ title, content, author, slug }, (err, blog) => {
     if (err) {
       res.status(400).json({ error: "Duplicate title name!" })
     }
     res.json(blog)
+  })
+}
+
+// get all blog data
+exports.getAllBlogs = (req, res) => {
+  Blogs.find({}).exec((err, blogs) => {
+    res.json(blogs)
   })
 }
