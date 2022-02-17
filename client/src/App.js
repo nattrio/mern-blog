@@ -30,7 +30,8 @@ function App() {
             <h2>{blog.title}</h2>
             <p>{blog.content.substring(0, 180)}</p>
             <p className="text-muted">
-              ผู้เขียน: {blog.author}, เผยแพร่: {blog.createdAt}
+              ผู้เขียน: {blog.author}, เผยแพร่:{" "}
+              {new Date(blog.createdAt).toLocaleString()}
             </p>
           </div>
         </div>
