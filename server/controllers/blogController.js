@@ -30,3 +30,11 @@ exports.getAllBlogs = (req, res) => {
     res.json(blogs)
   })
 }
+
+// Get single blog by slug
+exports.singleBlog = (req, res) => {
+  const { slug } = req.params
+  Blogs.findOne({ slug }).exec((err, blog) => {
+    res.json(blog)
+  })
+}
