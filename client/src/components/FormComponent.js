@@ -2,19 +2,26 @@ import { useState } from "react"
 import NavbarComponent from "./NavbarComponent"
 import axios from "axios"
 import Swal from "sweetalert2"
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
 
 const FormComponent = () => {
   const [state, setState] = useState({
     title: "",
-    content: "",
     author: "",
   })
-  const { title, content, author } = state
+  const { title, author } = state
+
+  const [content, setContent] = useState("")
 
   //   กำหนดค่าให้ state
   const inputValue = (name) => (event) => {
     // console.log(name, "=", event.target.value)
     setState({ ...state, [name]: event.target.value })
+  }
+
+  const submitContent = (event) => {
+    setContent(event)
   }
 
   const submitForm = (e) => {
@@ -28,7 +35,8 @@ const FormComponent = () => {
       })
       .then((response) => {
         Swal.fire("แจ้งเตือน", "บันทึกข้อมูลบทความเรียบร้อย", "success")
-        setState({ ...state, title: "", content: "", author: "" })
+        setState({ ...state, title: "", author: "" })
+        setContent("")
       })
       .catch((err) => {
         Swal.fire("แจ้งเตือน", err.response.data.error, "error")
@@ -51,11 +59,19 @@ const FormComponent = () => {
         </div>
         <div className="from-group">
           <label htmlFor="">รายละเอียด</label>
-          <textarea
+          <ReactQuill
+            value={content}
+            onChange={submitContent}
+            theme="snow"
+            className="pb-5 mb-3"
+            placeholder="รายละเอียดบทความ"
+            style={{ border: "1px solid #666" }}
+          />
+          {/* <textarea
             className="form-control"
             value={content}
             onChange={inputValue("content")}
-          ></textarea>
+          ></textarea> */}
         </div>
         <div className="from-group">
           <label htmlFor="">ชื่อผู้แต่ง</label>

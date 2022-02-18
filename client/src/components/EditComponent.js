@@ -2,15 +2,21 @@ import { useState, useEffect } from "react"
 import NavbarComponent from "./NavbarComponent"
 import axios from "axios"
 import Swal from "sweetalert2"
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
 
 const EditComponent = (props) => {
   const [state, setState] = useState({
     title: "",
-    content: "",
     author: "",
     slug: "",
   })
-  const { title, content, author, slug } = state
+  const { title, author, slug } = state
+  const [content, setContent] = useState("")
+
+  const submitContent = (event) => {
+    setContent(event)
+  }
 
   const showUpdateForm = () => (
     <form action="" onSubmit={submitForm}>
@@ -25,11 +31,13 @@ const EditComponent = (props) => {
       </div>
       <div className="from-group">
         <label htmlFor="">รายละเอียด</label>
-        <textarea
-          className="form-control"
+        <ReactQuill
           value={content}
-          onChange={inputValue("content")}
-        ></textarea>
+          onChange={submitContent}
+          theme="snow"
+          className="pb-5 mb-3"
+          style={{ border: "1px solid #666" }}
+        />
       </div>
       <div className="from-group">
         <label htmlFor="">ชื่อผู้แต่ง</label>
@@ -50,7 +58,8 @@ const EditComponent = (props) => {
       .get(`${process.env.REACT_APP_API}/blog/${props.match.params.slug}`)
       .then((response) => {
         const { title, content, author, slug } = response.data
-        setState({ ...state, title, content, author, slug })
+        setState({ ...state, title, author, slug })
+        setContent(content)
       })
       .catch((err) => alert(err))
     // eslint-disable-next-line
@@ -74,7 +83,8 @@ const EditComponent = (props) => {
       .then((response) => {
         Swal.fire("แจ้งเตือน", "อัพเดตข้อมูลบทความเรียบร้อย", "success")
         const { title, content, author, slug } = response.data
-        setState({ ...state, title, content, author, slug })
+        setState({ ...state, title, author, slug })
+        setContent(content)
       })
       .catch((err) => {
         // Swal.fire("แจ้งเตือน", err.response.data.error, "error")
