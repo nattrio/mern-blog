@@ -2,8 +2,10 @@ import { useState } from "react"
 import NavbarComponent from "./NavbarComponent"
 import axios from "axios"
 import Swal from "sweetalert2"
+import { withRouter } from "react-router-dom"
+import { authenticate } from "../services/authorize"
 
-const LoginConponent = () => {
+const LoginConponent = (props) => {
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -19,8 +21,9 @@ const LoginConponent = () => {
     e.preventDefault()
     axios
       .post(`${process.env.REACT_APP_API}/login`, { username, password })
+      // login สำเร็จ
       .then((response) => {
-        console.log(response)
+        authenticate(response, () => props.history.push("/create"))
       })
       .catch((err) => {
         Swal.fire("แจ้งเตือน", err.response.data.err, "error")
@@ -59,4 +62,4 @@ const LoginConponent = () => {
   )
 }
 
-export default LoginConponent
+export default withRouter(LoginConponent)
