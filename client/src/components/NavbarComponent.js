@@ -12,6 +12,11 @@ const NavbarComponent = () => {
             เขียนบทความ
           </a>
         </li>
+        <li className="nav-item pr-3 pt-3 pb-3">
+          <a href="/login" className="nav-link">
+            เข้าสู่ระบบ
+          </a>
+        </li>
       </ul>
     </nav>
   )
