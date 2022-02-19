@@ -10,15 +10,18 @@ const NavbarComponent = ({ history }) => {
             หน้าแรก
           </Link>
         </li>
-        <li className="nav-item pr-3 pt-3 pb-3">
-          <Link to="/create" className="nav-link">
-            เขียนบทความ
-          </Link>
-        </li>
+
         {!getUser() && (
           <li className="nav-item pr-3 pt-3 pb-3">
             <Link to="/login" className="nav-link">
               เข้าสู่ระบบ
+            </Link>
+          </li>
+        )}
+        {getUser() && (
+          <li className="nav-item pr-3 pt-3 pb-3">
+            <Link to="/create" className="nav-link">
+              เขียนบทความ
             </Link>
           </li>
         )}
