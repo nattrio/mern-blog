@@ -4,6 +4,7 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
 import renderHTML from "react-render-html"
+import { getUser } from "./services/authorize"
 
 function App() {
   const [blogs, setBlogs] = useState([])
@@ -62,19 +63,24 @@ function App() {
               ผู้เขียน: {blog.author}, เผยแพร่:{" "}
               {new Date(blog.createdAt).toLocaleString()}
             </p>
-            <Link
-              className="btn btn-outline-success"
-              to={`/blog/edit/${blog.slug}`}
-            >
-              อัพเดตบทความ
-            </Link>
-            &nbsp;
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => confirmDelete(blog.slug)}
-            >
-              ลบบทความ
-            </button>
+
+            {getUser() && (
+              <div>
+                <Link
+                  className="btn btn-outline-success"
+                  to={`/blog/edit/${blog.slug}`}
+                >
+                  อัพเดตบทความ
+                </Link>
+                &nbsp;
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => confirmDelete(blog.slug)}
+                >
+                  ลบบทความ
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ))}
