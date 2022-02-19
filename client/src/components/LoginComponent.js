@@ -1,5 +1,7 @@
 import { useState } from "react"
 import NavbarComponent from "./NavbarComponent"
+import axios from "axios"
+import Swal from "sweetalert2"
 
 const LoginConponent = () => {
   const [state, setState] = useState({
@@ -15,7 +17,14 @@ const LoginConponent = () => {
 
   const submitForm = (e) => {
     e.preventDefault()
-    console.table({ username, password })
+    axios
+      .post(`${process.env.REACT_APP_API}/login`, { username, password })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        Swal.fire("แจ้งเตือน", err.response.data.err, "error")
+      })
   }
 
   return (
