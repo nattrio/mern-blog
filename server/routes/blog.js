@@ -8,8 +8,13 @@ const {
   update,
 } = require("../controllers/blogController")
 
+const { requireLogin } = require("../controllers/authController")
+
 router.post("/create", create)
-router.get("/blogs", getAllBlogs)
+
+// ใช้งาน requireLogin เป็น Middleware
+router.get("/blogs", requireLogin, getAllBlogs)
+
 router.get("/blog/:slug", singleBlog)
 router.delete("/blog/:slug", remove)
 router.put("/blog/:slug", update)
