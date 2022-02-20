@@ -4,6 +4,7 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import { getToken } from "../services/authorize"
 
 const EditComponent = (props) => {
   const [state, setState] = useState({
@@ -75,11 +76,17 @@ const EditComponent = (props) => {
     e.preventDefault()
     console.log("API URL", process.env.REACT_APP_API)
     axios
-      .put(`${process.env.REACT_APP_API}/blog/${slug}`, {
-        title,
-        content,
-        author,
-      })
+      .put(
+        `${process.env.REACT_APP_API}/blog/${slug}`,
+        {
+          title,
+          content,
+          author,
+        },
+        {
+          headers: { authorization: `Bearer ${getToken()}` },
+        }
+      )
       .then((response) => {
         Swal.fire("แจ้งเตือน", "อัพเดตข้อมูลบทความเรียบร้อย", "success")
         const { title, content, author, slug } = response.data

@@ -4,11 +4,12 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import { getUser, getToken } from "../services/authorize"
 
 const FormComponent = () => {
   const [state, setState] = useState({
     title: "",
-    author: "",
+    author: getUser(),
   })
   const { title, author } = state
 
@@ -28,11 +29,17 @@ const FormComponent = () => {
     e.preventDefault()
     console.log("API URL", process.env.REACT_APP_API)
     axios
-      .post(`${process.env.REACT_APP_API}/create`, {
-        title,
-        content,
-        author,
-      })
+      .post(
+        `${process.env.REACT_APP_API}/create`,
+        {
+          title,
+          content,
+          author,
+        },
+        {
+          headers: { authorization: `Bearer ${getToken()}` },
+        }
+      )
       .then((response) => {
         Swal.fire("แจ้งเตือน", "บันทึกข้อมูลบทความเรียบร้อย", "success")
         setState({ ...state, title: "", author: "" })
