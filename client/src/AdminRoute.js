@@ -6,7 +6,7 @@ const AdminRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) =>
       getUser() ? (
-        <component {...props} />
+        <Component {...props} />
       ) : (
         <Redirect
           to={{ pathname: "/login", state: { from: props.location } }}
