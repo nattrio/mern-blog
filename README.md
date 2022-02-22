@@ -4,4 +4,4 @@
 <https://mern-blog-client-nattrio.herokuapp.com/>
 
 ## Server
-<https://mern-blog-api-nattrio.herokuapp.com/>
+<https://mern-blog-api-nattrio.herokuapp.com/api/blogs>
